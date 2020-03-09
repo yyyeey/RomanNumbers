@@ -101,25 +101,45 @@ console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), 
 //REMOVE end
 
 (function() {
-    const logValueTest = (value, convertedValue, expectedValue) => 
-        console.log("Testing '" + value + "'.",
-                    "Expected: {roman: " + expectedValue.roman + ", arabic: " + expectedValue.arabic + "}.",
-                    "Received: {roman: " + convertedValue.roman + ", arabic: " + convertedValue.arabic + "}.");
+    const BAD_OBJECT = { arabic: 0, roman: 'error'};
 
-    const testCase = (value) => {
+    const test = (value, expected) => {
+        console.log("Testing '" + value + "'.");
         let number = null;
         try {
             number = new RomanNumber(value);
             //console.log("Creating an object from:", value, ":(", number.toInt(), ":", number.toString(), ")");
         } catch (e) {
             console.error("ERROR.", "'" + value + "'", "conversion failed.", e.message)
-            number = { arabic: 0, roman: 'error'};
+            number = BAD_OBJECT;
         }
+        console.log("Expected: {roman: " + expected.roman + ", arabic: " + expected.arabic + "}.",
+                    "Received: {roman: " + number.roman + ", arabic: " + number.arabic + "}.");
         return number;
     }
     
     TEST_CASES = {
-        nullResolvesToError: () => testCase;
+        null_ResolvesTo_Error: () => test(null, BAD_OBJECT),
+        empty_ResolvesTo_Error: () => test('', BAD_OBJECT),
+        arabic0_ResolvesTo_Error: () => test(),
+        arabic1_ResolvesTo_RomanI: () => test(),
+        arabicThree_ResolvesTo_RomanIII: () => test(),
+        arabicFour_ResolvesTo_RomanIV: () => test(),
+        arabicFive_ResolvesTo_RomanV: () => test(),
+        romanI_ResolvesTo_ArabicOne: () => test(),
+        romanIII_ResolvesTo_ArabicThree: () => test(),
+        romanIIII_ResolvesTo_Error: () => test(),
+        romanIV_ResolvesTo_ArabicFour: () => test(),
+        romanV_ResolvesTo_ArabicFive: () => test(),
+        arabic1968_ResolvesTo_Roman: () => test(),
+        arabicZero_ResolvesTo_Error: () => test(),
+        arabicZero_ResolvesTo_Error: () => test(),
+        arabicZero_ResolvesTo_Error: () => test(),
+        arabicZero_ResolvesTo_Error: () => test(),
+        arabicZero_ResolvesTo_Error: () => test(),
+        arabicZero_ResolvesTo_Error: () => test(),
+        arabicZero_ResolvesTo_Error: () => test(),
+
     }
 
     TEST_VALUES = [null, '', 0, 1, 3, 4, 5, 'I', 'III', 'IIII', 'IV', 'V', 1968, '1473', 2999, 3000, 10000, 'CDXXIX', 'CD1X',
@@ -127,6 +147,6 @@ console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), 
     ];
 
     for (const value of TEST_VALUES) {
-        logValueTest(value, testCase(value), {});
+        logValueTest(value, test(value), {});
     }
 })();
