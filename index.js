@@ -101,7 +101,7 @@ console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), 
 //REMOVE end
 
 (function() {
-    const BAD_OBJECT = { arabic: 0, roman: 'error', toString: () => 'error'};
+    const BAD_OBJECT = {toString: () => 'error', toInt: () => 0};
 
     const test = (value, expected) => {
         console.log("Testing '" + value + "'.");
@@ -110,39 +110,39 @@ console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), 
             received = new RomanNumber(value);
             //console.log("Creating an object from:", value, ":(", number.toInt(), ":", number.toString(), ")");
         } catch (e) {
-            console.error("ERROR.", "'" + value + "'", "conversion failed.", e.message)
+            console.error("\tERROR.", "'" + value + "'", "conversion failed.", "Message:", e.message)
             received = BAD_OBJECT;
         }
-        console.log("Expected: {roman: " + expected.roman + ", arabic: " + expected.arabic + "}.",
+        console.log("\tExpected: {roman: " + expected.toString() + ", arabic: " + expected.toInt() + "}.",
                     "Received: {roman: " + received.toString() + ", arabic: " + received.toInt() + "}.");
-        return expected.roman === received.toString() && expected.arabic === received.toInt();
+        return expected.toString() === received.toString() && expected.toInt() === received.toInt();
     }
     
     TEST_CASES = {
         null_ResolvesTo_Error: () => test(null, BAD_OBJECT),
         empty_ResolvesTo_Error: () => test('', BAD_OBJECT),
-        /*arabic0_ResolvesTo_Error: () => test(),
-        arabic1_ResolvesTo_RomanI: () => test(),
-        arabic3_ResolvesTo_RomanIII: () => test(),
-        arabic4_ResolvesTo_RomanIV: () => test(),
-        arabic5_ResolvesTo_RomanV: () => test(),
-        romanI_ResolvesTo_Arabic1: () => test(),
-        romanIII_ResolvesTo_Arabic3: () => test(),
-        romanIIII_ResolvesTo_Error: () => test(),
-        romanIV_ResolvesTo_Arabic4: () => test(),
-        romanV_ResolvesTo_Arabic5: () => test(),
-        arabic1968_ResolvesTo_Roman: () => test(),
-        arabic1473string_ResolvesTo_Error: () => test(),
-        arabic2999_ResolvesTo_Roman: () => test(),
-        arabic3000_ResolvesTo_RomanMMM: () => test(),
-        arabic10000_ResolvesTo_Error: () => test(),
-        romanCDXXIX_ResolvesTo_Arabic429: () => test(),
-        stringCD1X_ResolvesTo_Error: () => test(),
-        stringError_ResolvesTo_Error: () => test(),
-        romanMCDLXXXII_ResolvesTo_Arabic1482: () => test(),
-        romanMCMLXXX_ResolvesTo_Arabic1980: () => test(),
-        romanMMMMCMXCIX_ResolvesTo_Error: () => test(),
-        romanMMMMDMXCIX_ResolvesTo_Error: () => test(),*/
+        arabic0_ResolvesTo_Error: () => test(0, BAD_OBJECT),
+        arabic1_ResolvesTo_RomanI: () => test(1, {toString: () => 'I', toInt: () => 1}),
+        arabic3_ResolvesTo_RomanIII: () => test(3, {toString: () => 'III', toInt: () => 3}),
+        arabic4_ResolvesTo_RomanIV: () => test(4, {toString: () => 'IV', toInt: () => 4}),
+        arabic5_ResolvesTo_RomanV: () => test(5, {toString: () => 'V', toInt: () => 5}),
+        romanI_ResolvesTo_Arabic1: () => test('I', {toString: () => 'I', toInt: () => 1}),
+        romanIII_ResolvesTo_Arabic3: () => test('III', {toString: () => 'III', toInt: () => 3}),
+        romanIIII_ResolvesTo_Error: () => test('IIII', BAD_OBJECT),
+        romanIV_ResolvesTo_Arabic4: () => test('IV', {toString: () => 'IV', toInt: () => 4}),
+        romanV_ResolvesTo_Arabic5: () => test('V', {toString: () => 'V', toInt: () => 5}),
+        arabic1968_ResolvesTo_Roman: () => test(1968, {toString: () => 'MCMLXVIII', toInt: () => 1968}),
+        string1473string_ResolvesTo_Error: () => test('1473', BAD_OBJECT),
+        arabic2999_ResolvesTo_Roman: () => test(2999, {toString: () => 'MMCMXCIX', toInt: () => 2999}),
+        arabic3000_ResolvesTo_RomanMMM: () => test(3000, {toString: () => 'MMM', toInt: () => 3000}),
+        arabic10000_ResolvesTo_Error: () => test(10000, BAD_OBJECT),
+        romanCDXXIX_ResolvesTo_Arabic429: () => test('CDXXIX'),
+        stringCD1X_ResolvesTo_Error: () => test('CD1X', BAD_OBJECT),
+        stringError_ResolvesTo_Error: () => test('error', BAD_OBJECT),
+        romanMCDLXXXII_ResolvesTo_Arabic1482: () => test('MCDLXXXII'),
+        romanMCMLXXX_ResolvesTo_Arabic1980: () => test('MCMLXXX', ),
+        romanMMMMCMXCIX_ResolvesTo_Error: () => test('MMMMCMXCIX', BAD_OBJECT),
+        romanMMMMDMXCIX_ResolvesTo_Error: () => test('MMMMDMXCIX', BAD_OBJECT),
     }
 
     /*TEST_VALUES = [null, '', 0, 1, 3, 4, 5, 'I', 'III', 'IIII', 'IV', 'V', 1968, '1473', 2999, 3000, 10000, 'CDXXIX', 'CD1X',
@@ -150,6 +150,6 @@ console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), 
     ];*/
 
     for (const [key, value] of Object.entries(TEST_CASES)) {
-        console.log(key, value());
+        console.log(value() ? "PASS" : "FAIL", key, "\n");
     }
 })();
