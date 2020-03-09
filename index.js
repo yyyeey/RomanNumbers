@@ -1,19 +1,19 @@
 const RomanNumber = function(value) {
     const VALUE_RANGE = {MIN: 1, MAX: 3999}
-    const arabicToRomanMap = [
-        {arabic: 1000, roman: 'M'},
-        {arabic: 900, roman: 'CM'},
-        {arabic: 500, roman: 'D'},
-        {arabic: 400, roman: 'CD'},
-        {arabic: 100, roman: 'C'},
-        {arabic: 90, roman: 'XC'},
-        {arabic: 50, roman: 'L'},
-        {arabic: 40, roman: 'XL'},
-        {arabic: 10, roman: 'X'},
-        {arabic: 9, roman: 'IX'},
-        {arabic: 5, roman: 'V'},
-        {arabic: 4, roman: 'IV'},
-        {arabic: 1, roman: 'I'},
+    const CONVERSION_MAP = [
+        {ARABIC: 1000, ROMAN: 'M'},
+        {ARABIC: 900, ROMAN: 'CM'},
+        {ARABIC: 500, ROMAN: 'D'},
+        {ARABIC: 400, ROMAN: 'CD'},
+        {ARABIC: 100, ROMAN: 'C'},
+        {ARABIC: 90, ROMAN: 'XC'},
+        {ARABIC: 50, ROMAN: 'L'},
+        {ARABIC: 40, ROMAN: 'XL'},
+        {ARABIC: 10, ROMAN: 'X'},
+        {ARABIC: 9, ROMAN: 'IX'},
+        {ARABIC: 5, ROMAN: 'V'},
+        {ARABIC: 4, ROMAN: 'IV'},
+        {ARABIC: 1, ROMAN: 'I'},
     ];
 
     if(!new.target)
@@ -32,25 +32,32 @@ const RomanNumber = function(value) {
         let remainder = value;
         let romanString = '';
         while (remainder > 0) {
-            const token = arabicToRomanMap.find(e => e.arabic <= remainder);
+            const token = CONVERSION_MAP.find(e => e.ARABIC <= remainder);
             console.log(token, remainder)
             if(!token) {
                 throw new Error('invalid value');
             }
 
-            romanString += token.roman;
-            remainder -= token.arabic;
+            romanString += token.ROMAN;
+            remainder -= token.ARABIC;
         }
         this.roman = romanString;
 
     } else if (typeof value === 'string') {
         this.roman = value;
 
+        let maxTokenValue = 1000;
         let remainder = value;
-        let biggestValue = 1000;
         let arabicValue = 0;
         while (remainder != '') {
-            const token
+            const token = CONVERSION_MAP.find(e => remainder.startsWith(e.ROMAN) && e.ARABIC <= maxTokenValue);
+            if(!token) {
+                throw new Error('invalid value');
+            }
+
+            arabicValue += token.ARABIC;
+            maxTokenValue = token.ARABIC;
+            remainder = remainder.slice(token.ROMAN.length);
             
             //check for small before big
             //make sure theres a combination of 1 small and 1 big  pair at a time
@@ -80,7 +87,15 @@ let r2 = new RomanNumber(432);
 let r3 = new RomanNumber(234);
 let r4 = new RomanNumber(989);
 
-console.log(romanNumber1.toInt(), romanNumber1.toString(), r1.toString(), r2.toString(), r3.toString(), r4.toString())
+let r5 = new RomanNumber("MMCXI");
+let r6 = new RomanNumber("XXIX");
+let r7 = new RomanNumber("DCIV");
+let r8 = new RomanNumber("CDXXXIII");
+
+
+console.log(romanNumber1.toString(), romanNumber2.toString(), r1.toString(), r2.toString(), r3.toString(), r4.toString())
+console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), r7.toInt(), r8.toInt())
+
 
 /*Test for:
 null, ‘’, 0, 1, 3, 4, 5, ‘I’, ‘III’, ‘IIII’, ‘IV’, ‘V’, 1968, ‘1473’, 2999, 3000, 10000, ‘CDXXIX’, ‘CD1X’,
