@@ -59,6 +59,7 @@ const RomanNumber = function(value) {
             maxTokenValue = token.ARABIC;
             remainder = remainder.slice(token.ROMAN.length);
             
+            //
             //check for small before big
             //make sure theres a combination of 1 small and 1 big  pair at a time
             //no more than 3x same char
@@ -80,6 +81,7 @@ RomanNumber.prototype.toInt = function() {
     return this.arabic;
 }
 
+//REMOVE start
 let romanNumber1 = new RomanNumber('XX');
 let romanNumber2 = new RomanNumber(40);
 let r1 = new RomanNumber(1995);
@@ -93,9 +95,20 @@ let r7 = new RomanNumber("DCIV");
 let r8 = new RomanNumber("CDXXXIII");
 
 
-console.log(romanNumber1.toString(), romanNumber2.toString(), r1.toString(), r2.toString(), r3.toString(), r4.toString())
-console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), r7.toInt(), r8.toInt())
+console.log(romanNumber1.toString(), romanNumber2.toString(), r1.toString(), r2.toString(), r3.toString(), r4.toString());
+console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), r7.toInt(), r8.toInt());
 
+//REMOVE end
+
+(function() {
+    TEST_VALUES = [null, '', 0, 1, 3, 4, 5, 'I', 'III', 'IIII', 'IV', 'V', 1968, '1473', 2999, 3000, 10000, 'CDXXIX', 'CD1X',
+                    'error', 'MCDLXXXII', 'MCMLXXX', 'MMMMCMXCIX', 'MMMMDMXCIX'
+    ];
+
+    for (const value of TEST_VALUES) {
+        console.log(value);
+    }
+})();
 
 /*Test for:
 null, ‘’, 0, 1, 3, 4, 5, ‘I’, ‘III’, ‘IIII’, ‘IV’, ‘V’, 1968, ‘1473’, 2999, 3000, 10000, ‘CDXXIX’, ‘CD1X’,
