@@ -46,11 +46,20 @@ const RomanNumber = function(value) {
     } else if (typeof value === 'string') {
         this.roman = value;
 
-        //check for small before big
-        //make sure theres a combination of 1 small and 1 big  pair at a time
-        //no more than 3x same char
-        //only multiples of 10 and 1 can be subtracted
-        //this.arabic = 
+        let remainder = value;
+        let biggestValue = 1000;
+        let arabicValue = 0;
+        while (remainder != '') {
+            const token
+            
+            //check for small before big
+            //make sure theres a combination of 1 small and 1 big  pair at a time
+            //no more than 3x same char
+            //only multiples of 10 and 1 can be subtracted
+        }
+
+        this.arabic = arabicValue;
+
     } else {
         throw new Error('invalid value');
     }
