@@ -101,7 +101,8 @@ console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), 
 //REMOVE end
 
 (function() {
-    //const logValueTest = value => console.log()
+    const logValueTest = (value, convertedValue, expectedValue) => 
+        console.log("Testing '" + value + "'. Expected '{roman: " + expectedValue.roman + ", arabic: " + expectedValue.arabic + "}. Received: " + "")
     TEST_VALUES = [null, '', 0, 1, 3, 4, 5, 'I', 'III', 'IIII', 'IV', 'V', 1968, '1473', 2999, 3000, 10000, 'CDXXIX', 'CD1X',
                     'error', 'MCDLXXXII', 'MCMLXXX', 'MMMMCMXCIX', 'MMMMDMXCIX'
     ];
@@ -115,10 +116,3 @@ console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), 
         }
     }
 })();
-
-/*Test for:
-null, ‘’, 0, 1, 3, 4, 5, ‘I’, ‘III’, ‘IIII’, ‘IV’, ‘V’, 1968, ‘1473’, 2999, 3000, 10000, ‘CDXXIX’, ‘CD1X’,
-‘error’, ‘MCDLXXXII’, ‘MCMLXXX’, ‘MMMMCMXCIX’, ‘MMMMDMXCIX’
-
-exceptions don't stop the code exec
-*/
