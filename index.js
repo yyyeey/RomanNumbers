@@ -2,19 +2,18 @@ const RomanNumber = function(value) {
     const VALUE_RANGE = {MIN: 1, MAX: 3999}
     const arabicToRomanMap = [
         {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
-        {arabic: 1, roman: 'I'},
+        {arabic: 4, roman: 'IV'},
+        {arabic: 5, roman: 'V'},
+        {arabic: 9, roman: 'IX'},
+        {arabic: 10, roman: 'X'},
+        {arabic: 40, roman: 'XL'},
+        {arabic: 50, roman: 'L'},
+        {arabic: 90, roman: 'XC'},
+        {arabic: 100, roman: 'C'},
+        {arabic: 400, roman: 'CD'},
+        {arabic: 500, roman: 'D'},
+        {arabic: 900, roman: 'CM'},
+        {arabic: 1000, roman: 'M'},
     ];
 
     if(!new.target)
@@ -55,6 +54,10 @@ let romanNumber1 = new RomanNumber('XX');
 let romanNumber2 = new RomanNumber(40);
 
 console.log(romanNumber1.toInt(), romanNumber1.toString())
+let a = "12345"
+for(let i = 0; i < a.length; ++i) {
+    console.log(a[i])
+}
 
 /*Test for:
 null, ‘’, 0, 1, 3, 4, 5, ‘I’, ‘III’, ‘IIII’, ‘IV’, ‘V’, 1968, ‘1473’, 2999, 3000, 10000, ‘CDXXIX’, ‘CD1X’,
