@@ -22,7 +22,7 @@ const RomanNumber = function(value) {
     if (!value) {
         throw new Error('value required'); //the value cannot be empty
     } else if (typeof value === 'number') {
-        console.log(value)
+        //console.log(value)
         if (value < VALUE_RANGE.MIN || value > VALUE_RANGE.MAX) {
             throw new Error('invalid range');
         }
@@ -33,7 +33,7 @@ const RomanNumber = function(value) {
         let romanString = '';
         while (remainder > 0) {
             const token = CONVERSION_MAP.find(e => e.ARABIC <= remainder);
-            console.log(token, remainder)
+            //console.log(token, remainder)
             if(!token) {
                 throw new Error('invalid value');
             }
@@ -71,18 +71,18 @@ const RomanNumber = function(value) {
     } else {
         throw new Error('invalid value');
     }
-}
+};
 
 RomanNumber.prototype.toString = function() {
     return this.roman;
-}
+};
 
 RomanNumber.prototype.toInt = function() {
     return this.arabic;
-}
+};
 
 //REMOVE start
-let romanNumber1 = new RomanNumber('XX');
+/*let romanNumber1 = new RomanNumber('XX');
 let romanNumber2 = new RomanNumber(40);
 let r1 = new RomanNumber(1995);
 let r2 = new RomanNumber(432);
@@ -96,17 +96,23 @@ let r8 = new RomanNumber("CDXXXIII");
 
 
 console.log(romanNumber1.toString(), romanNumber2.toString(), r1.toString(), r2.toString(), r3.toString(), r4.toString());
-console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), r7.toInt(), r8.toInt());
+console.log(romanNumber1.toInt(), romanNumber2.toInt(), r5.toInt(), r6.toInt(), r7.toInt(), r8.toInt());*/
 
 //REMOVE end
 
 (function() {
+    //const logValueTest = value => console.log()
     TEST_VALUES = [null, '', 0, 1, 3, 4, 5, 'I', 'III', 'IIII', 'IV', 'V', 1968, '1473', 2999, 3000, 10000, 'CDXXIX', 'CD1X',
                     'error', 'MCDLXXXII', 'MCMLXXX', 'MMMMCMXCIX', 'MMMMDMXCIX'
     ];
 
     for (const value of TEST_VALUES) {
-        console.log(value);
+        try {
+            const number = new RomanNumber(value);
+            console.log("Creating an object from:", value, ":(", number.toInt(), ":", number.toString(), ")");
+        } catch (e) {
+            console.error("ERROR.", "'"+value+"'", "conversion failed.",e.message,)
+        }
     }
 })();
 
