@@ -62,11 +62,6 @@ const RomanNumber = function(value) {
             maxTokenValue = token.ARABIC;
             remainder = remainder.slice(token.ROMAN.length);
             lastToken = token;
-            
-            //
-            //check for small before big
-            //make sure theres a combination of 1 small and 1 big  pair at a time
-            //only multiples of 10 and 1 can be subtracted
         }
 
         this.arabic = arabicValue;
@@ -130,7 +125,7 @@ RomanNumber.prototype.toInt = function() {
         romanMMMMDMXCIX_ResolvesTo_Error:       () => test('MMMMDMXCIX',    BAD_OBJECT),
 
         // my own tests
-        romanMDM_ResolvesTo_Error:       () => test('MDM',    BAD_OBJECT),
+        romanCMD_ResolvesTo_Error:       () => test('CMD',    BAD_OBJECT),
         romanCDC_ResolvesTo_Error:       () => test('CDC',    BAD_OBJECT),
     }
 
