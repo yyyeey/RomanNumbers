@@ -44,23 +44,28 @@ const RomanNumber = function(value) {
     } else if (typeof value === 'string') {
         this.roman = value;
 
-        let maxTokenValue = 1000;
+        let maxTokenValue = CONVERSION_MAP[0].ARABIC;
+        let lastToken = null;
+        let tokenStreak = 0;
         let remainder = value;
         let arabicValue = 0;
         while (remainder != '') {
             const token = CONVERSION_MAP.find(e => remainder.startsWith(e.ROMAN) && e.ARABIC <= maxTokenValue);
-            if(!token) {
+
+            tokenStreak = lastToken === token ? ++tokenStreak : 1;
+            if (!token ||
+                tokenStreak > 3) {
                 throw new Error('invalid value');
             }
 
             arabicValue += token.ARABIC;
             maxTokenValue = token.ARABIC;
             remainder = remainder.slice(token.ROMAN.length);
+            lastToken = token;
             
             //
             //check for small before big
             //make sure theres a combination of 1 small and 1 big  pair at a time
-            //no more than 3x same char
             //only multiples of 10 and 1 can be subtracted
         }
 
@@ -78,6 +83,7 @@ RomanNumber.prototype.toString = function() {
 RomanNumber.prototype.toInt = function() {
     return this.arabic;
 };
+
 
 (function() {
     const BAD_OBJECT = {toString: () => 'error', toInt: () => 0};
@@ -122,6 +128,10 @@ RomanNumber.prototype.toInt = function() {
         romanMCMLXXX_ResolvesTo_Arabic1980:     () => test('MCMLXXX',       getTestObj('MCMLXXX',   1980)),
         romanMMMMCMXCIX_ResolvesTo_Error:       () => test('MMMMCMXCIX',    BAD_OBJECT),
         romanMMMMDMXCIX_ResolvesTo_Error:       () => test('MMMMDMXCIX',    BAD_OBJECT),
+
+        // my own tests
+        romanMDM_ResolvesTo_Error:       () => test('MDM',    BAD_OBJECT),
+        romanCDC_ResolvesTo_Error:       () => test('CDC',    BAD_OBJECT),
     }
 
     for (const [key, value] of Object.entries(TEST_CASES)) {
